@@ -24,11 +24,12 @@ class AppFixtures extends Fixture
 
         for($i=0; $i<6; $i++) {
 
+            $rolesUser = [["ROLE_ADMIN"], ["ROLE_USER"], ["ROLE_ANONYMOUS"]];
             $user  = new User();
             $user->setEmail($faker->email);
             $user->setUsername($faker->userName);
             $user->setPassword($this->encoder->encodePassword($user, 'password'));
-                  
+            $user->setRoles($faker->randomElement($rolesUser));
             $manager->persist($user);
         }
 
@@ -37,6 +38,7 @@ class AppFixtures extends Fixture
             $task->setTitle('Tache : '. $i);
             $task->setContent($faker->text(200));
             $task->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'));
+            $task->setAuthor($user->setRoles(["ROLE_ANONYMOUS"]));
             $task->isDone($faker->boolean());
             $manager->persist($task);
         }

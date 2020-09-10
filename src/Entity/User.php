@@ -46,6 +46,12 @@ class User implements UserInterface
      */
     private $tasks;
 
+    /**
+     * @ORM\Column(type="json")
+     * @Assert\NotBlank(message="Vous devez choisir un role pour l'utilisateur.")
+     */
+    private $roles = [];
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -127,6 +133,13 @@ class User implements UserInterface
                 $task->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
