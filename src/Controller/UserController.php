@@ -13,9 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
-/**
- * @IsGranted("ROLE_ADMIN")
- */
 class UserController extends AbstractController
 {
     /**
@@ -37,6 +34,8 @@ class UserController extends AbstractController
      */
     public function listAction(UserRepository $userRepository)
     {
+        $this->denyAccessUnlessGranted('GET', $this->getUser()); 
+
         $users = $userRepository->findAll();
         return $this->render('user/list.html.twig', ['users' => $users]);
     }
@@ -72,6 +71,8 @@ class UserController extends AbstractController
      */
     public function editAction(User $user, Request $request)
     {
+        $this->denyAccessUnlessGranted('EDIT', $user);
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
