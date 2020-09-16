@@ -22,6 +22,11 @@
                     </h4>
                     <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
                     <p>{{ task.content }}</p>
+                    {% if task.author and task.author.roles != ["ROLE_ANONYMOUS"] %}
+                    <p>{{ task.author.username }}</p>
+                    {% else %}
+                     <p>Auteur anonyme</p>
+                    {% endif %}
                 </div>
                 <div>
                     <form action="{{ path('task_toggle', {'id' : task.id }) }}">
