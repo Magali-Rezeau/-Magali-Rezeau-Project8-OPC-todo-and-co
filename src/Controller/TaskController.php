@@ -23,12 +23,33 @@ class TaskController extends AbstractController
     }
     
     /**
+     * Consult the list of all tasks
      * @Route("/tasks", name="task_list")
      */
     public function listAction(TaskRepository $taskRepository)
     {
         $tasks = $taskRepository->findAll();
         return $this->render('task/list.html.twig', ['tasks' => $tasks]);
+    }
+
+    /**
+     * Consult the list of all tasks to do 
+     * @Route("/tasks/todo", name="task_list_todo")
+     */
+    public function listActionToDo(TaskRepository $taskRepository)
+    {
+        $tasks = $taskRepository->findBy(['isDone' => false]);
+        return $this->render('task/list-todo.html.twig', ['tasks' => $tasks]);
+    }
+
+    /**
+     * Consult the list of completed tasks
+     * @Route("/tasks/done", name="task_list_done")
+     */
+    public function listActionDone(TaskRepository $taskRepository)
+    {
+        $tasks = $taskRepository->findBy(['isDone' => true]);
+        return $this->render('task/list-done.html.twig', ['tasks' => $tasks]);
     }
 
     /**
@@ -57,6 +78,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Update a task
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
     public function editAction(Task $task, Request $request)
@@ -81,6 +103,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * 
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
     public function toggleTaskAction(Task $task)
@@ -89,9 +112,13 @@ class TaskController extends AbstractController
         $this->manager->persist($task);
         $this->manager->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
-
-        return $this->redirectToRoute('task_list');
+        if($task->isDone() === true) {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+            return $this->redirectToRoute('task_list_done');
+        } else {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle()));
+            return $this->redirectToRoute('task_list_todo');
+        }
     }
 
     /**
