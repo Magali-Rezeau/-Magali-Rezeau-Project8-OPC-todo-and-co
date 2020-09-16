@@ -20,8 +20,8 @@ abstract class AbstractControllerTest extends WebTestCase
 
         $buttonCrawlerMode = $crawler->filter('form');
         $form = $buttonCrawlerMode->form([
-            '_username' => 'dupuy.denise',
-            '_password' => 'password'
+            'username' => 'dupuy.denise',
+            'password' => 'password'
         ]);
 
         $this->client->submit($form);
@@ -33,8 +33,8 @@ abstract class AbstractControllerTest extends WebTestCase
 
         $buttonCrawlerMode = $crawler->filter('form');
         $form = $buttonCrawlerMode->form([
-            '_username' => 'tfischer',
-            '_password' => 'password'
+            'username' => 'tfischer',
+            'password' => 'password'
         ]);
 
         $this->client->submit($form);
@@ -46,8 +46,8 @@ abstract class AbstractControllerTest extends WebTestCase
 
         $buttonCrawlerMode = $crawler->filter('form');
         $form = $buttonCrawlerMode->form([
-            '_username' => 'gpoirier',
-            '_password' => 'password'
+            'username' => 'gpoirier',
+            'password' => 'password'
         ]);
 
         $this->client->submit($form);

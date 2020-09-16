@@ -18,7 +18,7 @@ class SecurityControllerTest extends AbstractControllerTest
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->filter('html:contains("Nom d\'utilisateur")')->count());
         $this->assertSame(1, $crawler->filter('html:contains("Mot de passe")')->count());
-        $this->assertContains("Se connecter", $crawler->filter('.btn.btn-success')->text());
+        $this->assertContains("Se connecter", $crawler->filter('.btn.btn-primary')->text());
     }
 
     public function testLoginError()
@@ -27,8 +27,8 @@ class SecurityControllerTest extends AbstractControllerTest
         $link = $crawler->selectButton('Se connecter');
         $form = $link->form();
         $this->client->submit($form, [
-            '_username' => 'test',
-            '_password' => 'test'
+            'username' => 'test',
+            'password' => 'test'
         ]);
        
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());

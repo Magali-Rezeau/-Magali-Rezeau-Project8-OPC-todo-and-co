@@ -16,8 +16,8 @@ class TaskControllerTest extends WebTestCase
         $link = $crawler->selectButton('Se connecter');
         $form = $link->form();
         $client->submit($form, [
-            '_username' => 'tfischer',
-            '_password' => 'password'
+            'username' => 'tfischer',
+            'password' => 'password'
         ]);
         $client->request('GET', '/tasks');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

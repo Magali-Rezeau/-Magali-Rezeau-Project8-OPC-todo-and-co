@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
@@ -33,6 +32,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Creation of a new task
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request, Security $security)
