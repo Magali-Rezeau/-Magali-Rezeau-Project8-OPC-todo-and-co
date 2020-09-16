@@ -24,21 +24,21 @@ class AppFixtures extends Fixture
         
         $user  = new User();
         $user->setEmail($faker->email);
-        $user->setUsername($faker->userName);
+        $user->setUsername("john.doe.admin");
         $user->setPassword($this->encoder->encodePassword($user, 'password'));
         $user->setRoles(["ROLE_ADMIN"]);
         $manager->persist($user);
 
         $user1 = new User();
         $user1->setEmail($faker->email);
-        $user1->setUsername($faker->userName);
+        $user1->setUsername("john.doe.user");
         $user1->setPassword($this->encoder->encodePassword($user, 'password'));
         $user1->setRoles(["ROLE_USER"]);
         $manager->persist($user1);
 
         $user2 = new User();
         $user2->setEmail($faker->email);
-        $user2->setUsername($faker->userName);
+        $user2->setUsername("anonymous");
         $user2->setPassword($this->encoder->encodePassword($user, 'password'));
         $user2->setRoles(["ROLE_ANONYMOUS"]);
         $manager->persist($user2);
@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
             $users = [ $user, $user1, $user2];
             $task  = new Task();
             $task->setTitle('Tache : '. $i);
-            $task->setContent($faker->text(200));
+            $task->setContent($faker->text(100));
             $task->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'));
             $task->setAuthor($faker->randomElement($users));
             $task->isDone($faker->boolean());

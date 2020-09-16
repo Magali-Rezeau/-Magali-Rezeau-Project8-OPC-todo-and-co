@@ -68,7 +68,7 @@ class TaskControllerTest extends AbstractControllerTest
     public function testEditAction()
     {
         $this->loginRoleUser();
-        $crawler = $this->client->request('GET', '/tasks/200/edit');
+        $crawler = $this->client->request('GET', '/tasks/19/edit');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('Modifier')->form();
@@ -91,7 +91,7 @@ class TaskControllerTest extends AbstractControllerTest
     public function testDeleteActionNotAuthor()
     {
         $this->loginRoleUser();
-        $this->client->request('GET', '/tasks/200/delete');
+        $this->client->request('GET', '/tasks/6/delete');
         $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -101,7 +101,7 @@ class TaskControllerTest extends AbstractControllerTest
     public function testDeleteAction()
     {
         $this->loginRoleUser();
-        $this->client->request('GET', '/tasks/194/delete');
+        $this->client->request('GET', '/tasks/1/delete');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
@@ -116,7 +116,7 @@ class TaskControllerTest extends AbstractControllerTest
     public function testDeleteActionAuthorAnonymous()
     {
         $this->loginRoleAdmin();
-        $this->client->request('GET', '/tasks/197/delete');
+        $this->client->request('GET', '/tasks/6/delete');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
