@@ -15,7 +15,7 @@
 
         <!-- Custom CSS -->
         <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
+        <nav class="navbar navbar-light navbar-fixed-top mb-5" style="background-color: #e3f2fd;" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">To Do List app</a>
@@ -37,14 +37,19 @@
 
         <!-- Page Content -->
         <div class="container">
-            <div class="row">
-                {% if app.user and is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+            <div class="row d-flex justify-content-between mb-5">
+                {% if app.user and is_granted('ROLE_ADMIN') and 'user_create' != app.request.attributes.get('_route') %}
+                <a href="{{ path('user_create') }}" class="btn btn-primary mr-5">Créer un utilisateur</a>
+                {% endif %}
+                 {% if 'user_list' != app.request.attributes.get('_route') %}
+                <a href="{{ path('user_list') }}" class="btn btn-primary mr-5">Consulter la liste des utilisateurs</a>
                 {% endif %}
                 {% if app.user %}
-                <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
+                {% if 'homepage' != app.request.attributes.get('_route') %}
+                <a href="{{ path('homepage') }}" class="btn btn-success mr-5">Accueil</a>
                 {% endif %}
-
+                <a href="{{ path('logout') }}" class="btn btn-danger ml-auto">Se déconnecter</a>
+                {% endif %}
                 {% if not app.user and 'login' != app.request.attributes.get('_route') %}
                 <a href="{{ path('login') }}" class="btn btn-success">Se connecter</a>
                 {% endif %}
