@@ -41,7 +41,7 @@
                 {% if app.user and is_granted('ROLE_ADMIN') and 'user_create' != app.request.attributes.get('_route') %}
                 <a href="{{ path('user_create') }}" class="btn btn-primary mr-5">Créer un utilisateur</a>
                 {% endif %}
-                 {% if 'user_list' != app.request.attributes.get('_route') %}
+                 {% if app.user and is_granted('ROLE_ADMIN') and 'user_list' != app.request.attributes.get('_route') %}
                 <a href="{{ path('user_list') }}" class="btn btn-primary mr-5">Consulter la liste des utilisateurs</a>
                 {% endif %}
                 {% if app.user %}
