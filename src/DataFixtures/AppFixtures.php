@@ -52,7 +52,6 @@ class AppFixtures extends Fixture
             $task->setContent($faker->text(100));
             $task->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'));
             $task->setAuthor($faker->randomElement($users));
-            $task->isDone($faker->boolean());
             $manager->persist($task);
         }
         $manager->flush();

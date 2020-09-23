@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Tests\Entity;
 
 use DateTime;
 use App\Entity\Task;
 use App\Entity\User;
+use Symfony\Component\Validator\Validation;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TaskTest extends WebTestCase
 {
@@ -35,12 +38,9 @@ class TaskTest extends WebTestCase
     public function testIsDone()
     {
         $this->task->setIsDone($this->task->IsDone());
-        $this->assertEquals(false, $this->task->IsDone());
-    }
-
-    public function testToggle()
-    {
-        $this->assertEquals(false, $this->task->toggle(false));
+        $this->assertEquals(0, $this->task->IsDone());
+        $this->task->toggle(true);
+        $this->assertSame(true, $this->task->getIsDone());
     }
 
     public function testCreatedAt()

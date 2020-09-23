@@ -11,13 +11,22 @@ class TaskControllerTest extends AbstractControllerTest
 {
         
     /**
-     * Test of the list of all tasks
+     * Test of the list of all tasks if the user is authenticated
      */
     public function testListAction()
     {
         $this->loginRoleUser();
         $this->client->request('GET', '/tasks');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+    }
+    
+    /**
+	 * Test of the list of all tasks if the user is not authenticated
+	 */
+	public function testListActionUnauthenticated()
+	{
+		$this->client->request('GET', "/tasks");
+		$this->assertEquals('302', $this->client->getResponse()->getStatusCode());
     }
     
     /**
@@ -85,6 +94,22 @@ class TaskControllerTest extends AbstractControllerTest
 
     }
     
+    /**
+     * Test toogle a task as done
+     */
+    public function testToggleTaskActionDone()
+    {
+        $this->loginRoleUser();
+        $crawler = $this->client->request('GET', '/tasks/20/toggle');
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->followRedirect();
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
+        $this->assertContains("Superbe ! La tâche Tache : 19 a bien été marquée comme faite.", $crawler->filter('div.alert-success')->text());
+    }
+
     /**
      * Test delete a task if the user is not the author
      */
