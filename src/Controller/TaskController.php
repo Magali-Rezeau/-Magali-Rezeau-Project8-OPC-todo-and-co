@@ -11,6 +11,9 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * TaskController
+ */
 class TaskController extends AbstractController
 {
     /**
@@ -18,12 +21,14 @@ class TaskController extends AbstractController
      */
     private $manager;
 
-    public function __construct(EntityManagerInterface $manager) {
+    public function __construct(EntityManagerInterface $manager) 
+    {
         $this->manager = $manager;
     }
     
     /**
      * Consult the list of all tasks
+     * @return Response
      * @Route("/tasks", name="task_list")
      */
     public function listAction(TaskRepository $taskRepository)
@@ -34,6 +39,7 @@ class TaskController extends AbstractController
 
     /**
      * Consult the list of all tasks to do 
+     * @return Response
      * @Route("/tasks/todo", name="task_list_todo")
      */
     public function listActionToDo(TaskRepository $taskRepository)
@@ -44,6 +50,7 @@ class TaskController extends AbstractController
 
     /**
      * Consult the list of completed tasks
+     * @return Response
      * @Route("/tasks/done", name="task_list_done")
      */
     public function listActionDone(TaskRepository $taskRepository)
@@ -54,6 +61,7 @@ class TaskController extends AbstractController
 
     /**
      * Creation of a new task
+     * @return Response
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request, Security $security)
@@ -79,12 +87,13 @@ class TaskController extends AbstractController
 
     /**
      * Update a task
+     * @return Response
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
     public function editAction(Task $task, Request $request)
     {
         $this->denyAccessUnlessGranted('EDIT', $task);
-        
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -105,7 +114,8 @@ class TaskController extends AbstractController
     }
 
     /**
-     * 
+     * Toggle a task to do as task done and toggle a task done as task to do
+     * @return Response
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
     public function toggleTaskAction(Task $task)
@@ -124,6 +134,8 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Delete a task
+     * @return Response
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
     public function deleteTaskAction(Task $task)

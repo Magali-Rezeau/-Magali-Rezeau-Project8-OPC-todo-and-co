@@ -29,11 +29,14 @@ class UserController extends AbstractController
      */
     private $encoder;
 
-    public function __construct(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) {
+    public function __construct(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) 
+    {
         $this->manager = $manager;
         $this->encoder = $encoder;
     }
     /**
+     * Consult the list of all users
+     * @return Response
      * @Route("/users", name="user_list")
      */
     public function listAction(UserRepository $userRepository)
@@ -43,6 +46,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * Creation of a new user
+     * @return Response
      * @Route("/users/create", name="user_create")
      */
     public function createAction(Request $request)
@@ -69,6 +74,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * Update user
+     * @return Response
      * @Route("/users/{id}/edit", name="user_edit")
      */
     public function editAction(User $user, Request $request)
@@ -90,5 +97,20 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * Delete a user
+     * @return Response
+     * @Route("/users/{id}/delete", name="user_delete")
+     */
+    public function deleteUserAction(User $user)
+    {
+        $this->manager->remove($user);
+        $this->manager->flush();
+
+        $this->addFlash('success', 'L\'utilisateur a bien été supprimé.');
+
+        return $this->redirectToRoute('user_list');
     }
 }

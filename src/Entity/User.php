@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,7 +14,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table("user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email")
+ * @UniqueEntity(
+ *      fields={"username"},
+ *      message="Ce nom d'utilisateur existe déjà."
+ * )
  */
 class User implements UserInterface
 {
@@ -21,30 +26,40 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
+     * @Assert\Length(
+     *      min=2,
+     *      max=20,
+     *      minMessage="Le descriptif doit contenir plus de {{ limit }} caractères.",
+     *      maxMessage="Le descriptif doit contenir moins de {{ limit }} caractères."
+     * )
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min=4,
+     *      minMessage="Le descriptif doit contenir plus de {{ limit }} caractères."
+     * )
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
-     * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
+     * @Assert\Email(message="Le format de l'adresse email n'est pas correcte.")
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="author")
      */
-    private $tasks;
+    private Collection $tasks;
 
     /**
      * @ORM\Column(type="json")

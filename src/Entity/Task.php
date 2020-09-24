@@ -1,11 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @UniqueEntity(
+ *      fields={"title"},
+ *      message="Cette tâche existe déjà."
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  * @ORM\Table
  */
@@ -16,38 +25,50 @@ class Task
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
+     * @Assert\Length(
+     *      min=2,
+     *      max=20,
+     *      minMessage="Le titre doit contenir plus de {{ limit }} caractères.",
+     *      maxMessage="Le titre doit contenir moins de {{ limit }} caractères."
+     * )
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Vous devez saisir du contenu.")
+     * @Assert\NotBlank(message="Vous devez saisir un descriptif.")
+     * @Assert\Length(
+     *      min=5,
+     *      max=300,
+     *      minMessage="Le descriptif doit contenir plus de {{ limit }} caractères.",
+     *      maxMessage="Le descriptif doit contenir moins de {{ limit }} caractères."
+     * )
      */
-    private $content;
+    private string $content;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isDone;
+    private bool $isDone;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      */
-    private $author;
-
+    private User $author;
+    
     public function __construct()
     {
-        $this->createdAt = new \Datetime();
+        $this->createdAt = new DateTime();
         $this->isDone = false;
     }
 
@@ -80,7 +101,7 @@ class Task
     {
         return $this->content;
     }
-
+   
     public function setContent($content)
     {
         $this->content = $content;
