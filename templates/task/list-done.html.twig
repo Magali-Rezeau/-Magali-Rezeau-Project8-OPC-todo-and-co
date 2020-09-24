@@ -1,53 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
+{% block header_img %}
+    <img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">
+{% endblock %}
 
 {% block body %}
-     <div class="row d-flex justify-content-between">
-        <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
-        <a href="{{ path('task_list') }}" class="btn btn-info">Consulter la liste de toutes les tâches</a>
-        <a href="{{ path('task_list_done') }}" class="btn btn-info">Consulter la liste des tâches terminées</a>
-    </div>
-    <div class="row m-5 text-center">
-        <h2 class="font-italic m-auto">Liste des tâches terminées</h2>
-    </div>
-    
-    <div class="row">
-        {% for task in tasks %}
-        <div class="card col-md-4 mb-5">
-        <div class="card-body">
-                <div class="row d-flex justify-content-end">
-                        {% if task.isDone %}<i class="fas fa-thumbs-up"></i>{% else %}<i class="fas fa-check"></i>{% endif %}
-                   </div>
-            <h5 class="card-title"><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h5>
-             {% if task.author and task.author.roles != ["ROLE_ANONYMOUS"] %}
-                <h6 class="card-subtitle mb-2 text-muted">{{ task.author.username }}</h6>
-                   
-                    {% else %}
-                     <h6 class="card-subtitle mb-2 text-muted">Auteur anonyme</h6>
-                    {% endif %}
-            
-            <p class="card-text">{{ task.content }}</p>
-            <div class="row d-flex justify-content-between mt-5">
-             <form action="{{ path('task_toggle', {'id' : task.id }) }}">
-                        <button class="card-link btn btn-success">
-                            {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
-                        </button>
-                    </form>
-                    {% if (app.user == task.author and task.author.roles != ["ROLE_ANONYMOUS"]) or (task.author.roles == ["ROLE_ANONYMOUS"] and is_granted("ROLE_ADMIN")) %}
-                    <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                        <button class="card-link btn btn-danger">Supprimer</button>
-                    </form>
-                    {% endif %}
-                </div>
-        </div>
-    </div>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de tâche terminée.
-            </div>
-        {% endfor %}
-        
-    </div>
-    
+	<div class="row d-flex justify-content-between">
+		<a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
+		<a href="{{ path('task_list') }}" class="btn btn-info">Consulter la liste de toutes les tâches</a>
+		<a href="{{ path('task_list_done') }}" class="btn btn-info">Consulter la liste des tâches terminées</a>
+	</div>
+	<div class="row m-5 text-center">
+		<h2 class="font-italic m-auto">Liste des tâches terminées</h2>
+	</div>
+	<div class="row">
+		{% for task in tasks %}
+			<div class="card col-md-4 mb-5">
+				<div class="card-body">
+					<div class="row d-flex justify-content-end">
+						{% if task.isDone %}
+							<i class="fas fa-thumbs-up"></i>
+						{% else %}
+							<i class="fas fa-check"></i>
+						{% endif %}
+					</div>
+					<h5 class="card-title">
+						<a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
+					</h5>
+					{% if task.author and task.author.roles != ["ROLE_ANONYMOUS"] %}
+						<h6 class="card-subtitle mb-2 text-muted">{{ task.author.username }}</h6>
+					{% else %}
+						<h6 class="card-subtitle mb-2 text-muted">Auteur anonyme</h6>
+					{% endif %}
+					<p class="card-text">{{ task.content }}</p>
+					<div class="row d-flex justify-content-between mt-5">
+						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
+							<button class="card-link btn btn-success">
+								{% if not task.isDone %}
+                                    Marquer comme faite
+                                {% else %}
+                                    Marquer non terminée
+								{% endif %}
+							</button>
+						</form>
+						{% if (app.user == task.author and task.author.roles != ["ROLE_ANONYMOUS"]) or (task.author.roles == ["ROLE_ANONYMOUS"] and is_granted("ROLE_ADMIN")) %}
+							<form action="{{ path('task_delete', {'id' : task.id }) }}">
+								<button class="card-link btn btn-danger">Supprimer</button>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="alert alert-warning" role="alert">Il n'y a pas encore de tâche terminée.</div>
+		{% endfor %}
+	</div>
 {% endblock %}
