@@ -21,12 +21,16 @@
 						{% if task.isDone %}
 							<i class="fas fa-thumbs-up"></i>
 						{% else %}
-							<i class="fas fa-check"></i>
+							<i class="fas fa-clipboard"></i>
 						{% endif %}
 					</div>
+                    {% if (app.user == task.author and task.author.roles != ["ROLE_ANONYMOUS"]) or (task.author.roles == ["ROLE_ANONYMOUS"] and is_granted("ROLE_ADMIN")) %}
 					<h5 class="card-title">
 						<a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
 					</h5>
+                    {% else %}
+                    <h5 class="card-title">{{ task.title }}</h5>
+                    {% endif %}
 					{% if task.author and task.author.roles != ["ROLE_ANONYMOUS"] %}
 						<h6 class="card-subtitle mb-2 text-muted">{{ task.author.username }}</h6>
 					{% else %}

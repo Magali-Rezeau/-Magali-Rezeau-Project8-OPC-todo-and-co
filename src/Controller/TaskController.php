@@ -83,6 +83,8 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request)
     {
+        $this->denyAccessUnlessGranted('EDIT', $task);
+        
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);

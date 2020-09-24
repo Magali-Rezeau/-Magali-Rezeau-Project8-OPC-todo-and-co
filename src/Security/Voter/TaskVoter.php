@@ -20,7 +20,7 @@ class TaskVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['DELETE'])
+        return in_array($attribute, ['DELETE', 'EDIT'])
             && $subject instanceof \App\Entity\Task;
     }
 
@@ -43,7 +43,16 @@ class TaskVoter extends Voter
                     return true;
                 }
                 return false;
-                break;
+            break;
+            case 'EDIT':
+                if ($subject->getAuthor() === $user) {
+                    return true;
+                }
+                if ($this->security->isGranted('ROLE_ADMIN') && $subject->getAuthor()->getRoles() === ["ROLE_ANONYMOUS"]) {
+                    return true;
+                }
+                return false;
+            break;
         }
 
         return false;
