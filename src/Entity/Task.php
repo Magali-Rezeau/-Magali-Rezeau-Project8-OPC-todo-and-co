@@ -25,7 +25,7 @@ class Task
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="datetime")
@@ -64,7 +64,7 @@ class Task
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      */
-    private User $author;
+    private $author;
     
     public function __construct()
     {
@@ -134,9 +134,9 @@ class Task
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?User $user): self
     {
-        $this->author = $author;
+        $this->author = $user;
 
         return $this;
     }

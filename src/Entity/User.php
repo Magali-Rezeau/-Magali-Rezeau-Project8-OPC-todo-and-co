@@ -26,7 +26,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
@@ -59,7 +59,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="author")
      */
-    private Collection $tasks;
+    private $tasks;
 
     /**
      * @ORM\Column(type="json")

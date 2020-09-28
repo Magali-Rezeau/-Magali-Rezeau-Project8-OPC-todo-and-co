@@ -43,7 +43,7 @@ class UserControllerTest extends AbstractControllerTest
         $form['user[password][first]'] = "password";
         $form['user[password][second]'] = "password";
         $form['user[email]'] = "test@email.com";
-        $form['user[roles][0]']->tick();
+        $form['user[roles]']->select("ROLE_USER");
         $this->client->submit($form);
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
@@ -69,7 +69,7 @@ class UserControllerTest extends AbstractControllerTest
         $form['user[password][first]'] = "password";
         $form['user[password][second]'] = "password";
         $form['user[email]'] = "test@email.com";
-        $form['user[roles][1]']->tick();
+        $form['user[roles]']->select("ROLE_ADMIN");
         $this->client->submit($form);
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());

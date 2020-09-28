@@ -77,7 +77,7 @@ class TaskControllerTest extends AbstractControllerTest
     public function testEditAction()
     {
         $this->loginRoleUser();
-        $crawler = $this->client->request('GET', '/tasks/19/edit');
+        $crawler = $this->client->request('GET', '/tasks/2/edit');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('Modifier')->form();
