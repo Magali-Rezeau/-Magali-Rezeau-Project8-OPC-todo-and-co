@@ -1,6 +1,6 @@
 Project8-OPC-todo-and-co
 
-## Contributing guidelines
+# Contributing guidelines
 
 This is a guide to contributing to Todo and Co project.
 
@@ -15,7 +15,7 @@ Now you need a copy locally, so find the “SSH Clone URL” in the right column
 Now that you have the source code, get it working on your computer by referring to README INSTRUCTIONS.
 
 3. Do some work
-# Create a branch
+#### Create a branch
 Navigate to the repository directory on your computer.Create the new branch using a logical name corresponding to the changes or new features :
 ```
     git checkout -b new-feature
@@ -23,10 +23,10 @@ Navigate to the repository directory on your computer.Create the new branch usin
 For this project, we are using a free code reviewer that automates code reviews and monitors code quality over time : Codacy.
 
 Recommendations to follow :
-    - Run PHPUnit regularly to verify the code.Implement your own tests, but make sure you don't decrease code coverage (100%).
-    - Make sure you don't modify existing tests.
+* Run PHPUnit regularly to verify the code.Implement your own tests, but make sure you don't decrease code coverage (100%).
+* Make sure you don't modify existing tests.
 
-# Run the tests
+#### Run the tests
 To implement new tests, refer to the official Symfony documentation.
 Run the tests with generation of a code coverage report to ensure that all the new code is running :
 ```
