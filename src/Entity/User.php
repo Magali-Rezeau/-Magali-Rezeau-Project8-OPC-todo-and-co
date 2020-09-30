@@ -34,7 +34,7 @@ class User implements UserInterface
      * @Assert\Length(
      *      min=2,
      *      max=20,
-     *      minMessage="Le descriptif doit contenir plus de {{ limit }} caractères.",
+     *      minMessage="Le nom d'utilisateur doit contenir plus de {{ limit }} caractères.",
      *      maxMessage="Le descriptif doit contenir moins de {{ limit }} caractères."
      * )
      */
