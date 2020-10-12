@@ -71,28 +71,7 @@ class TaskControllerTest extends AbstractControllerTest
         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
 
     }
-    /**
-     * Test update of a task
-     */
-    public function testEditAction()
-    {
-        $this->loginRoleUser();
-        $crawler = $this->client->request('GET', '/tasks/2/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
-        $form = $crawler->selectButton('Modifier')->form();
-        $form['task[title]'] = "Le titre de la tâche modifié";
-        $form['task[content]'] = "Le contenu de la tâche modifié";
-        $this->client->submit($form);
-
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-
-        $crawler = $this->client->followRedirect();
-
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
-
-    }
+   
     
     /**
      * Test toogle a task as done

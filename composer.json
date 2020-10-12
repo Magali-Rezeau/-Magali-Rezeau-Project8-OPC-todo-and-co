@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=7.2",
+        "php": "^7.2",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
@@ -45,7 +45,8 @@
         "symfony/css-selector": "5.1.*",
         "symfony/dotenv": "5.1.*",
         "symfony/maker-bundle": "^1.21",
-        "symfony/phpunit-bridge": "^5.1"
+        "symfony/phpunit-bridge": "^5.1",
+        "symfony/stopwatch": "^5.1"
     },
     "config": {
         "preferred-install": {

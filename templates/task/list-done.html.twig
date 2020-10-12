@@ -36,6 +36,7 @@
 					{% else %}
 						<h6 class="card-subtitle mb-2 text-muted">Auteur anonyme</h6>
 					{% endif %}
+					<h6 class="text-info"><em>{{ task.createdAt|date("d/m/Y \\à H:i:s","Europe/Paris") }}</em></h6>
 					<p class="card-text">{{ task.content }}</p>
 					<div class="row d-flex justify-content-between mt-5">
 						<form action="{{ path('task_toggle', {'id' : task.id }) }}">

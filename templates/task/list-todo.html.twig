@@ -11,7 +11,8 @@
 		<a href="{{ path('task_list_todo') }}" class="btn btn-info">Consulter la liste des tâches à faire</a>
 	</div>
 	<div class="row m-5 text-center">
-		<h2 class="font-italic m-auto">Liste des tâches terminées</h2>
+		<h2 class="font-italic m-auto">Liste des tâches à faire</h2>
+		<h4>Veuillez cliquer sur le titre d'une tâche pour modifier le titre ou le descriptif.</h4>
 	</div>
 	<div class="row">
 		{% for task in tasks %}
@@ -36,6 +37,7 @@
 					{% else %}
 						<h6 class="card-subtitle mb-2 text-muted">Auteur anonyme</h6>
 					{% endif %}
+					<h6 class="text-info"><em>{{ task.createdAt|date("d/m/Y \\à H:i:s","Europe/Paris") }}</em></h6>
 					<p class="card-text">{{ task.content }}</p>
 					<div class="row d-flex justify-content-between mt-5">
 						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
