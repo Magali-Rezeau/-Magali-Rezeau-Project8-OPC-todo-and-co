@@ -3,6 +3,7 @@ Project8-OPC-todo-and-co
 
 To do list is an application for managing daily tasks.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/01188f64715246d590308e05620e0881)](https://app.codacy.com/gh/Magali-Rezeau/Project8-OPC-todo-and-co?utm_source=github.com&utm_medium=referral&utm_content=Magali-Rezeau/Project8-OPC-todo-and-co&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/96f87c9203134a9fb395def23527de46)](https://www.codacy.com/manual/Magali-Rezeau/Project8-OPC-todo-and-co/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Magali-Rezeau/Project8-OPC-todo-and-co&amp;utm_campaign=Badge_Grade)
 
 ## Installation
